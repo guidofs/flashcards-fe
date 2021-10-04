@@ -1,0 +1,29 @@
+
+.app-login{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.login-body{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .login{
+        cursor: pointer;
+    }
+}
+
+.header{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.warning{
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1pt;
+    font-weight: bold;
+}

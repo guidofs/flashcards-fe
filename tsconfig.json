@@ -4,6 +4,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
+    "types": ["chrome"],
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,

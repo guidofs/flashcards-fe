@@ -1,0 +1,55 @@
+<div class="app-flashcards-game--container">
+    <mat-card  *ngIf="flashcardSelected; else finishOrStart">
+        <mat-card-content>
+            <div class="question" >
+                <h1> {{flashcardSelected?.title}} </h1>
+            </div>
+            <div class="define" *ngIf="flashcardSelected.definition?.show">
+                    <div *ngIf="flashcardSelected.definition.error; else definitionWihoutError">
+                        {{ flashcardSelected.definition.content }}
+                    </div>
+                    <ng-template #definitionWihoutError>
+                        <div *ngFor="let totalWords of flashcardSelected.definition.content">
+                            {{ totalWords.word }}
+                            <div *ngFor="let meaning of totalWords.meanings">
+                                <div *ngFor="let definitions of meaning.definitions ">
+                                    <p>
+                                      Define:  {{definitions.definition}}
+                                    </p>
+                                    <p>
+                                      Example:   {{definitions.example}}
+                                    </p>
+        
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </ng-template>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button *ngIf="showButtonOk" (click)="next()">I KNOW</button>
+            <button mat-button *ngIf="showButtonOk" (click)="seeDefinition()">See Definition</button>
+            <button mat-button (click)="skip()">Skip</button>
+        </mat-card-actions>
+    </mat-card>
+</div>
+
+
+<ng-template #finishOrStart>
+    <mat-card>
+        <mat-card-content *ngIf="finished">
+            No more words for today
+        </mat-card-content>
+        <mat-card-content *ngIf="!started">
+            Let's start to play!
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button *ngIf="finished" (click)="back()">BACK</button>
+            <button mat-button *ngIf="!started" (click)="next()">GO!</button>
+
+        </mat-card-actions>
+    </mat-card>
+
+
+</ng-template>

@@ -1,0 +1,11 @@
+.dashboard{
+    &-header{
+        height: 10vh;
+    }
+    &-container{
+        padding: 20pt;
+        width: 100%;
+        height: 90vh;
+        box-sizing: border-box;
+    }
+}

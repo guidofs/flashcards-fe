@@ -1,0 +1,7 @@
+<mat-toolbar color="primary">
+    <span class="pointer" [routerLink]="['']" routerLinkActive="router-link-active" >Your FlashCards</span>
+    <div>
+      <span>{{ user.name }}</span>
+      <span class="logout" (click)="logout()">Salir</span>
+    </div>
+  </mat-toolbar>
