@@ -10,6 +10,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { take, finalize } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
+import { environment } from 'src/environments/environment';
 
 const FLASHCARDS = [
   {
@@ -60,10 +61,8 @@ export interface ContentDefinitionFlashcard {
 }
 export interface IFlashcardGame {
   flashcards: Flashcard[];
-
   flashcardSelected: Flashcard | null;
   currentIndex: number;
-
   next(): void;
   seeDefinition(): void;
   skip(): void;
@@ -78,6 +77,8 @@ export class FlashcardGame implements IFlashcardGame {
   currentIndex: number = -1;
   finished: boolean = false;
   started: boolean = false;
+  public loading: boolean = false;
+  public emptyFlashcards = false;
   private _originalFlashcards = [];
 
 
@@ -174,14 +175,18 @@ export class FlashcardsGameComponent extends FlashcardGame implements OnInit {
 
   constructor(private auth:AuthService,private navCtrl: Router,private http: HttpClient, public sanitizer: DomSanitizer) {
     super(http)
+    this.loading = true;
     this.auth.token.subscribe(token => {
-      console.log(token)
-      this.http.get('http://localhost:1337/flashcards',{
+      this.http.get(`${environment.baseUrl}/flashcards`,{
         params:{
           token
         }
       }).subscribe((data:Flashcard[]) => {
-        this.setFlashcards([...data.reverse(), ...FLASHCARDS])
+        this.loading = false;
+        if(!data.length){
+          this.emptyFlashcards = true;
+        }
+        this.setFlashcards([...data.reverse()])
       })
     })
 

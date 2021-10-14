@@ -1,4 +1,4 @@
-<div class="app-flashcards-game--container">
+<div class="app-flashcards-game--container" *ngIf="!loading">
     <mat-card  *ngIf="flashcardSelected; else finishOrStart">
         <mat-card-content>
             <div class="question" >
@@ -37,7 +37,7 @@
 
 
 <ng-template #finishOrStart>
-    <mat-card>
+    <mat-card *ngIf="!emptyFlashcards; else emptyFlashcardsContent ">
         <mat-card-content *ngIf="finished">
             No more words for today
         </mat-card-content>
@@ -50,6 +50,12 @@
 
         </mat-card-actions>
     </mat-card>
+</ng-template>
 
-
+<ng-template #emptyFlashcardsContent> 
+    <mat-card>
+        <mat-card-content>
+            No more words for today
+        </mat-card-content>
+    </mat-card>
 </ng-template>
