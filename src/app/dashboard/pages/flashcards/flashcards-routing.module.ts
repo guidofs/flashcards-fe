@@ -15,6 +15,13 @@ const routes: Routes = [
         (m) => m.FlashcardsGameModule
       ),
   },
+  {
+    path: ROUTES_FLASHCARDS.LIST,
+    loadChildren: () =>
+      import('./pages/flashcards-list/flashcards-list.module').then(
+        (m) => m.FlashcardsListModule
+      ),
+  },
 ];
 
 @NgModule({

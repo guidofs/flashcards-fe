@@ -4,14 +4,13 @@
     display: flex;
     flex-direction: column;
 }
+
 .login-body{
     height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    .login{
-        cursor: pointer;
+    width: 100%;
+    video{
+        width: 100%;
+        height: 88vh;
     }
 }
 
@@ -19,6 +18,9 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    .login{
+        cursor: pointer;
+    }
 }
 
 .warning{

@@ -16,4 +16,12 @@ export class HomeComponent implements OnInit {
 
   }
 
+  public goToExtension(): void{
+    let a= document.createElement('a');
+a.target= '_blank';
+a.href= 'https://chrome.google.com/webstore/detail/your-flashcards/nlclageaidanpmiendkccfiekmmbecok'
+
+a.click();
+
+  }
 }

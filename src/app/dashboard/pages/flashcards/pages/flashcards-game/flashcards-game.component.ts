@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { take, finalize } from 'rxjs/operators';
+import { take, finalize, map } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { environment } from 'src/environments/environment';
 
@@ -112,7 +112,7 @@ export class FlashcardGame implements IFlashcardGame {
     if (!this.checkFlashcards()) return;
     if (!this.flashcardSelected?.title) return;
 
-    if (!this.flashcardSelected?.definition) {
+    if (!this.flashcardSelected?.definition?.content) {
       this.httpC
         .get(`${this.defaultUrl}${this.flashcardSelected.title}`)
         .pipe(finalize(() => {}))
@@ -131,6 +131,9 @@ export class FlashcardGame implements IFlashcardGame {
             }
           }
         );
+    }
+    else{
+      this.flashcardSelected.definition.show = true;
     }
 
   }
@@ -181,7 +184,18 @@ export class FlashcardsGameComponent extends FlashcardGame implements OnInit {
         params:{
           token
         }
-      }).subscribe((data:Flashcard[]) => {
+      }).pipe(map((data:Flashcard[]) => {
+        return data.map((x:Flashcard) => {
+          return typeof x.definition === 'string' ? 
+          {
+            ...x,
+            definition:{
+              show: false,
+              content:x.definition
+            }
+          }:{...x}
+        })
+      })).subscribe((data:Flashcard[]) => {
         this.loading = false;
         if(!data.length){
           this.emptyFlashcards = true;

@@ -1,13 +1,17 @@
 <mat-toolbar color="primary">
     <div class="header">
         <span>Your Flashcards</span>
+        <span class="login" (click)="loginViaGoogle()">
+          Login with Google
+        </span>
     </div>
   </mat-toolbar>
 <mat-card class="warning">  <span> The project was born {{dateBefore}} days ago. </span>
 </mat-card>
   <div class="login-body">
-      
-        <mat-card class="login" (click)="loginViaGoogle()">
-            Login with Google
-        </mat-card>
+    <video [muted]="true" [autoplay]="true"  controls loop playsinline>
+      <source src="assets/testing.mp4" type="video/mp4" >
+    Your browser does not support the video tag.
+    </video>
+
   </div>
